@@ -7,6 +7,7 @@ import productTestRouter from "./routes/productos-test.js";
 import { dbDAO } from "./config/connectToDb.js";
 import { denormalizer, normalizer } from "./utils/normalizr.js";
 import MongoStore from "connect-mongo";
+import { passwordMongo, userMongo } from "./config/credentialsMongoAtlas.js";
 
 const app = express();
 const server = createServer(app);
@@ -25,8 +26,7 @@ const timeCookie = 600000;
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb+srv://<name>:<password>@coder.hscyqjb.mongodb.net/coff-fe?retryWrites=true&w=majority",
+      mongoUrl: `mongodb+srv://${userMongo}:${passwordMongo}@coder.hscyqjb.mongodb.net/coff-fe?retryWrites=true&w=majority`,
       collectionName: "sessions",
     }),
     secret: "secret",
